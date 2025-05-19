@@ -8,7 +8,7 @@ def gprProperties = new Properties()
 file("../gpr.properties").withInputStream { gprProperties.load(it) }
 
 ext {
-    versionName = "0.14.1"
+    versionName = "0.16.0"
 }
 
 android {
@@ -77,7 +77,7 @@ publishing {
             pom {
                 name = 'cooklang-parser'
                 description = 'Cooklang Parser Library for Android'
-                url = 'https://github.com/cooklang/cooklang-android'
+                url = 'https://github.com/cooklang/cooklang-kotlin'
                 licenses {
                     license {
                         name = 'The MIT License (MIT)'
@@ -92,9 +92,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection = 'scm:git:git://github.com/cooklang/cooklang-android.git'
-                    developerConnection = 'scm:git:ssh://github.com:cooklang/cooklang-android.git'
-                    url = 'https://github.com/cooklang/cooklang-android'
+                    connection = 'scm:git:git://github.com/cooklang/cooklang-kotlin.git'
+                    developerConnection = 'scm:git:ssh://github.com:cooklang/cooklang-kotlin.git'
+                    url = 'https://github.com/cooklang/cooklang-kotlin'
                 }
             }
         }
@@ -103,7 +103,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/cooklang/cooklang-android")
+            url = uri("https://maven.pkg.github.com/cooklang/cooklang-kotlin")
             credentials {
                 username = gprProperties['gpr.user']
                 password = gprProperties['gpr.token']

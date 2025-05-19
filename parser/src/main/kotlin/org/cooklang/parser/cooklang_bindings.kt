@@ -37,6 +37,9 @@ import java.util.concurrent.atomic.AtomicLong
 // A rust-owned buffer is represented by its capacity, its current length, and a
 // pointer to the underlying data.
 
+/**
+ * @suppress
+ */
 @Structure.FieldOrder("capacity", "len", "data")
 open class RustBuffer : Structure() {
     // Note: `capacity` and `len` are actually `ULong` values, but JVM only supports signed values.
@@ -98,6 +101,8 @@ open class RustBuffer : Structure() {
  * Required for callbacks taking in an out pointer.
  *
  * Size is the sum of all values in the struct.
+ *
+ * @suppress
  */
 class RustBufferByReference : ByReference(16) {
     /**
@@ -132,7 +137,7 @@ class RustBufferByReference : ByReference(16) {
 // completeness.
 
 @Structure.FieldOrder("len", "data")
-open class ForeignBytes : Structure() {
+internal open class ForeignBytes : Structure() {
     @JvmField var len: Int = 0
 
     @JvmField var data: Pointer? = null
@@ -140,10 +145,14 @@ open class ForeignBytes : Structure() {
     class ByValue : ForeignBytes(), Structure.ByValue
 }
 
-// The FfiConverter interface handles converter types to and from the FFI
-//
-// All implementing objects should be public to support external types.  When a
-// type is external we need to import it's FfiConverter.
+/**
+ * The FfiConverter interface handles converter types to and from the FFI
+ *
+ * All implementing objects should be public to support external types.  When a
+ * type is external we need to import it's FfiConverter.
+ *
+ * @suppress
+ */
 public interface FfiConverter<KotlinType, FfiType> {
     // Convert an FFI type to a Kotlin type
     fun lift(value: FfiType): KotlinType
@@ -210,7 +219,11 @@ public interface FfiConverter<KotlinType, FfiType> {
     }
 }
 
-// FfiConverter that uses `RustBuffer` as the FfiType
+/**
+ * FfiConverter that uses `RustBuffer` as the FfiType
+ *
+ * @suppress
+ */
 public interface FfiConverterRustBuffer<KotlinType> : FfiConverter<KotlinType, RustBuffer.ByValue> {
     override fun lift(value: RustBuffer.ByValue) = liftFromRustBuffer(value)
 
@@ -258,7 +271,11 @@ internal open class UniffiRustCallStatus : Structure() {
 
 class InternalException(message: String) : kotlin.Exception(message)
 
-// Each top-level error class has a companion object that can lift the error from the call status's rust buffer
+/**
+ * Each top-level error class has a companion object that can lift the error from the call status's rust buffer
+ *
+ * @suppress
+ */
 interface UniffiRustCallStatusErrorHandler<E> {
     fun lift(error_buf: RustBuffer.ByValue): E
 }
@@ -301,7 +318,11 @@ private fun <E : kotlin.Exception> uniffiCheckCallStatus(
     }
 }
 
-// UniffiRustCallStatusErrorHandler implementation for times when we don't expect a CALL_ERROR
+/**
+ * UniffiRustCallStatusErrorHandler implementation for times when we don't expect a CALL_ERROR
+ *
+ * @suppress
+ */
 object UniffiNullRustCallStatusErrorHandler : UniffiRustCallStatusErrorHandler<InternalException> {
     override fun lift(error_buf: RustBuffer.ByValue): InternalException {
         RustBuffer.free(error_buf)
@@ -794,11 +815,13 @@ internal interface UniffiLib : Library {
 
     fun uniffi_cooklang_bindings_fn_func_parse_metadata(
         `input`: RustBuffer.ByValue,
+        `scalingFactor`: Double,
         uniffi_out_err: UniffiRustCallStatus,
     ): RustBuffer.ByValue
 
     fun uniffi_cooklang_bindings_fn_func_parse_recipe(
         `input`: RustBuffer.ByValue,
+        `scalingFactor`: Double,
         uniffi_out_err: UniffiRustCallStatus,
     ): RustBuffer.ByValue
 
@@ -1074,10 +1097,10 @@ private fun uniffiCheckApiChecksums(lib: UniffiLib) {
     if (lib.uniffi_cooklang_bindings_checksum_func_parse_aisle_config() != 49190.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_parse_metadata() != 1124.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_parse_metadata() != 62014.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_parse_recipe() != 10849.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_parse_recipe() != 51184.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_cooklang_bindings_checksum_method_aisleconf_category_for() != 17275.toShort()) {
@@ -1108,6 +1131,9 @@ interface Disposable {
     }
 }
 
+/**
+ * @suppress
+ */
 inline fun <T : Disposable?, R> T.use(block: (T) -> R) =
     try {
         block(this)
@@ -1120,9 +1146,16 @@ inline fun <T : Disposable?, R> T.use(block: (T) -> R) =
         }
     }
 
-/** Used to instantiate an interface without an actual pointer, for fakes in tests, mostly. */
+/**
+ * Used to instantiate an interface without an actual pointer, for fakes in tests, mostly.
+ *
+ * @suppress
+ * */
 object NoPointer
 
+/**
+ * @suppress
+ */
 public object FfiConverterUInt : FfiConverter<UInt, Int> {
     override fun lift(value: Int): UInt {
         return value.toUInt()
@@ -1146,6 +1179,9 @@ public object FfiConverterUInt : FfiConverter<UInt, Int> {
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterDouble : FfiConverter<Double, Double> {
     override fun lift(value: Double): Double {
         return value
@@ -1169,6 +1205,9 @@ public object FfiConverterDouble : FfiConverter<Double, Double> {
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterString : FfiConverter<String, RustBuffer.ByValue> {
     // Note: we don't inherit from FfiConverterRustBuffer, because we use a
     // special encoding when lowering/lifting.  We can use `RustBuffer.len` to
@@ -1323,12 +1362,16 @@ public object FfiConverterString : FfiConverter<String, RustBuffer.ByValue> {
 // [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
 //
 
-// The cleaner interface for Object finalization code to run.
-// This is the entry point to any implementation that we're using.
-//
-// The cleaner registers objects and returns cleanables, so now we are
-// defining a `UniffiCleaner` with a `UniffiClenaer.Cleanable` to abstract the
-// different implmentations available at compile time.
+/**
+ * The cleaner interface for Object finalization code to run.
+ * This is the entry point to any implementation that we're using.
+ *
+ * The cleaner registers objects and returns cleanables, so now we are
+ * defining a `UniffiCleaner` with a `UniffiClenaer.Cleanable` to abstract the
+ * different implmentations available at compile time.
+ *
+ * @suppress
+ */
 interface UniffiCleaner {
     interface Cleanable {
         fun clean()
@@ -1492,6 +1535,9 @@ open class AisleConf : Disposable, AutoCloseable, AisleConfInterface {
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeAisleConf : FfiConverter<AisleConf, Pointer> {
     override fun lower(value: AisleConf): Pointer {
         return value.uniffiClonePointer()
@@ -1526,6 +1572,9 @@ data class AisleCategory(
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeAisleCategory : FfiConverterRustBuffer<AisleCategory> {
     override fun read(buf: ByteBuffer): AisleCategory {
         return AisleCategory(
@@ -1556,6 +1605,9 @@ data class AisleIngredient(
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeAisleIngredient : FfiConverterRustBuffer<AisleIngredient> {
     override fun read(buf: ByteBuffer): AisleIngredient {
         return AisleIngredient(
@@ -1586,6 +1638,9 @@ data class Amount(
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeAmount : FfiConverterRustBuffer<Amount> {
     override fun read(buf: ByteBuffer): Amount {
         return Amount(
@@ -1615,6 +1670,9 @@ data class BlockNote(
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeBlockNote : FfiConverterRustBuffer<BlockNote> {
     override fun read(buf: ByteBuffer): BlockNote {
         return BlockNote(
@@ -1645,6 +1703,9 @@ data class CooklangRecipe(
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeCooklangRecipe : FfiConverterRustBuffer<CooklangRecipe> {
     override fun read(buf: ByteBuffer): CooklangRecipe {
         return CooklangRecipe(
@@ -1684,6 +1745,9 @@ data class Cookware(
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeCookware : FfiConverterRustBuffer<Cookware> {
     override fun read(buf: ByteBuffer): Cookware {
         return Cookware(
@@ -1714,6 +1778,9 @@ data class GroupedQuantityKey(
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeGroupedQuantityKey : FfiConverterRustBuffer<GroupedQuantityKey> {
     override fun read(buf: ByteBuffer): GroupedQuantityKey {
         return GroupedQuantityKey(
@@ -1745,6 +1812,9 @@ data class Ingredient(
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeIngredient : FfiConverterRustBuffer<Ingredient> {
     override fun read(buf: ByteBuffer): Ingredient {
         return Ingredient(
@@ -1781,6 +1851,9 @@ data class Section(
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeSection : FfiConverterRustBuffer<Section> {
     override fun read(buf: ByteBuffer): Section {
         return Section(
@@ -1822,6 +1895,9 @@ data class Step(
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeStep : FfiConverterRustBuffer<Step> {
     override fun read(buf: ByteBuffer): Step {
         return Step(
@@ -1858,6 +1934,9 @@ data class Timer(
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeTimer : FfiConverterRustBuffer<Timer> {
     override fun read(buf: ByteBuffer): Timer {
         return Timer(
@@ -1897,6 +1976,9 @@ sealed class Block {
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeBlock : FfiConverterRustBuffer<Block> {
     override fun read(buf: ByteBuffer): Block {
         return when (buf.getInt()) {
@@ -1977,6 +2059,9 @@ sealed class Component {
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeComponent : FfiConverterRustBuffer<Component> {
     override fun read(buf: ByteBuffer): Component {
         return when (buf.getInt()) {
@@ -2089,6 +2174,9 @@ sealed class Item {
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeItem : FfiConverterRustBuffer<Item> {
     override fun read(buf: ByteBuffer): Item {
         return when (buf.getInt()) {
@@ -2183,6 +2271,9 @@ enum class QuantityType {
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeQuantityType : FfiConverterRustBuffer<QuantityType> {
     override fun read(buf: ByteBuffer) =
         try {
@@ -2226,6 +2317,9 @@ sealed class Value {
     companion object
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterTypeValue : FfiConverterRustBuffer<Value> {
     override fun read(buf: ByteBuffer): Value {
         return when (buf.getInt()) {
@@ -2308,6 +2402,9 @@ public object FfiConverterTypeValue : FfiConverterRustBuffer<Value> {
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterOptionalString : FfiConverterRustBuffer<kotlin.String?> {
     override fun read(buf: ByteBuffer): kotlin.String? {
         if (buf.get().toInt() == 0) {
@@ -2337,6 +2434,9 @@ public object FfiConverterOptionalString : FfiConverterRustBuffer<kotlin.String?
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterOptionalTypeAmount : FfiConverterRustBuffer<Amount?> {
     override fun read(buf: ByteBuffer): Amount? {
         if (buf.get().toInt() == 0) {
@@ -2366,6 +2466,9 @@ public object FfiConverterOptionalTypeAmount : FfiConverterRustBuffer<Amount?> {
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterSequenceUInt : FfiConverterRustBuffer<List<kotlin.UInt>> {
     override fun read(buf: ByteBuffer): List<kotlin.UInt> {
         val len = buf.getInt()
@@ -2391,6 +2494,9 @@ public object FfiConverterSequenceUInt : FfiConverterRustBuffer<List<kotlin.UInt
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterSequenceString : FfiConverterRustBuffer<List<kotlin.String>> {
     override fun read(buf: ByteBuffer): List<kotlin.String> {
         val len = buf.getInt()
@@ -2416,6 +2522,9 @@ public object FfiConverterSequenceString : FfiConverterRustBuffer<List<kotlin.St
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterSequenceTypeAisleIngredient : FfiConverterRustBuffer<List<AisleIngredient>> {
     override fun read(buf: ByteBuffer): List<AisleIngredient> {
         val len = buf.getInt()
@@ -2441,6 +2550,9 @@ public object FfiConverterSequenceTypeAisleIngredient : FfiConverterRustBuffer<L
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterSequenceTypeCookware : FfiConverterRustBuffer<List<Cookware>> {
     override fun read(buf: ByteBuffer): List<Cookware> {
         val len = buf.getInt()
@@ -2466,6 +2578,9 @@ public object FfiConverterSequenceTypeCookware : FfiConverterRustBuffer<List<Coo
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterSequenceTypeIngredient : FfiConverterRustBuffer<List<Ingredient>> {
     override fun read(buf: ByteBuffer): List<Ingredient> {
         val len = buf.getInt()
@@ -2491,6 +2606,9 @@ public object FfiConverterSequenceTypeIngredient : FfiConverterRustBuffer<List<I
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterSequenceTypeSection : FfiConverterRustBuffer<List<Section>> {
     override fun read(buf: ByteBuffer): List<Section> {
         val len = buf.getInt()
@@ -2516,6 +2634,9 @@ public object FfiConverterSequenceTypeSection : FfiConverterRustBuffer<List<Sect
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterSequenceTypeTimer : FfiConverterRustBuffer<List<Timer>> {
     override fun read(buf: ByteBuffer): List<Timer> {
         val len = buf.getInt()
@@ -2541,6 +2662,9 @@ public object FfiConverterSequenceTypeTimer : FfiConverterRustBuffer<List<Timer>
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterSequenceTypeBlock : FfiConverterRustBuffer<List<Block>> {
     override fun read(buf: ByteBuffer): List<Block> {
         val len = buf.getInt()
@@ -2566,6 +2690,9 @@ public object FfiConverterSequenceTypeBlock : FfiConverterRustBuffer<List<Block>
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterSequenceTypeItem : FfiConverterRustBuffer<List<Item>> {
     override fun read(buf: ByteBuffer): List<Item> {
         val len = buf.getInt()
@@ -2591,6 +2718,9 @@ public object FfiConverterSequenceTypeItem : FfiConverterRustBuffer<List<Item>> 
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterMapStringString : FfiConverterRustBuffer<Map<kotlin.String, kotlin.String>> {
     override fun read(buf: ByteBuffer): Map<kotlin.String, kotlin.String> {
         val len = buf.getInt()
@@ -2628,6 +2758,9 @@ public object FfiConverterMapStringString : FfiConverterRustBuffer<Map<kotlin.St
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterMapStringMapTypeGroupedQuantityKeyTypeValue : FfiConverterRustBuffer<Map<kotlin.String, Map<GroupedQuantityKey, Value>>> {
     override fun read(buf: ByteBuffer): Map<kotlin.String, Map<GroupedQuantityKey, Value>> {
         val len = buf.getInt()
@@ -2665,6 +2798,9 @@ public object FfiConverterMapStringMapTypeGroupedQuantityKeyTypeValue : FfiConve
     }
 }
 
+/**
+ * @suppress
+ */
 public object FfiConverterMapTypeGroupedQuantityKeyTypeValue : FfiConverterRustBuffer<Map<GroupedQuantityKey, Value>> {
     override fun read(buf: ByteBuffer): Map<GroupedQuantityKey, Value> {
         val len = buf.getInt()
@@ -2799,22 +2935,30 @@ fun `parseAisleConfig`(`input`: kotlin.String): AisleConf {
     )
 }
 
-fun `parseMetadata`(`input`: kotlin.String): Map<kotlin.String, kotlin.String> {
+fun `parseMetadata`(
+    `input`: kotlin.String,
+    `scalingFactor`: kotlin.Double,
+): Map<kotlin.String, kotlin.String> {
     return FfiConverterMapStringString.lift(
         uniffiRustCall { _status ->
             UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_parse_metadata(
                 FfiConverterString.lower(`input`),
+                FfiConverterDouble.lower(`scalingFactor`),
                 _status,
             )
         },
     )
 }
 
-fun `parseRecipe`(`input`: kotlin.String): CooklangRecipe {
+fun `parseRecipe`(
+    `input`: kotlin.String,
+    `scalingFactor`: kotlin.Double,
+): CooklangRecipe {
     return FfiConverterTypeCooklangRecipe.lift(
         uniffiRustCall { _status ->
             UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_parse_recipe(
                 FfiConverterString.lower(`input`),
+                FfiConverterDouble.lower(`scalingFactor`),
                 _status,
             )
         },

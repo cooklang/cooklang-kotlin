@@ -780,7 +780,6 @@ internal interface UniffiLib : Library {
     fun uniffi_cooklang_sync_client_fn_func_wait_remote_update(
         `apiEndpoint`: RustBuffer.ByValue,
         `remoteToken`: RustBuffer.ByValue,
-        `waitTime`: Long,
         uniffi_out_err: UniffiRustCallStatus,
     ): Unit
 
@@ -1032,7 +1031,7 @@ private fun uniffiCheckApiChecksums(lib: UniffiLib) {
     if (lib.uniffi_cooklang_sync_client_checksum_func_run_upload_once() != 50094.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_sync_client_checksum_func_wait_remote_update() != 53618.toShort()) {
+    if (lib.uniffi_cooklang_sync_client_checksum_func_wait_remote_update() != 36540.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
 }
@@ -1105,32 +1104,6 @@ public object FfiConverterInt : FfiConverter<Int, Int> {
         buf: ByteBuffer,
     ) {
         buf.putInt(value)
-    }
-}
-
-/**
- * @suppress
- */
-public object FfiConverterULong : FfiConverter<ULong, Long> {
-    override fun lift(value: Long): ULong {
-        return value.toULong()
-    }
-
-    override fun read(buf: ByteBuffer): ULong {
-        return lift(buf.getLong())
-    }
-
-    override fun lower(value: ULong): Long {
-        return value.toLong()
-    }
-
-    override fun allocationSize(value: ULong) = 8UL
-
-    override fun write(
-        value: ULong,
-        buf: ByteBuffer,
-    ) {
-        buf.putLong(value.toLong())
     }
 }
 
@@ -1448,12 +1421,10 @@ fun `runUploadOnce`(
 fun `waitRemoteUpdate`(
     `apiEndpoint`: kotlin.String,
     `remoteToken`: kotlin.String,
-    `waitTime`: kotlin.ULong,
 ) = uniffiRustCallWithError(SyncException) { _status ->
     UniffiLib.INSTANCE.uniffi_cooklang_sync_client_fn_func_wait_remote_update(
         FfiConverterString.lower(`apiEndpoint`),
         FfiConverterString.lower(`remoteToken`),
-        FfiConverterULong.lower(`waitTime`),
         _status,
     )
 }
