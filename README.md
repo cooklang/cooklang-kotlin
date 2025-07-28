@@ -1,4 +1,4 @@
-# cooklang-android
+# cooklang-kotlin
 
 Generated [Cooklang parser bindings](https://github.com/cooklang/cooklang-rs/tree/main/bindings) packed as Android library. Also in that project there's a sample app which uses Cooklang parser.
 
@@ -10,7 +10,7 @@ Step 1. Include jitpack.io into your repositories in root `settings.gradle`:
         ...
         repositories {
 	    maven {
-	        url = uri("https://maven.pkg.github.com/cooklang/cooklang-android")
+	        url = uri("https://maven.pkg.github.com/cooklang/cooklang-kotlin")
 	        credentials {
 	            username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
 	            password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")

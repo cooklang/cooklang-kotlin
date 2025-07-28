@@ -8,12 +8,12 @@ def gprProperties = new Properties()
 file("../gpr.properties").withInputStream { gprProperties.load(it) }
 
 ext {
-    versionName = "0.16.0"
+    versionName = "0.16.3"
 }
 
 android {
     namespace 'org.cooklang.parser'
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         minSdk 26
