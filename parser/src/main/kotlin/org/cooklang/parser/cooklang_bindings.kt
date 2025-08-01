@@ -773,6 +773,36 @@ internal interface UniffiLib : Library {
         uniffi_out_err: UniffiRustCallStatus,
     ): RustBuffer.ByValue
 
+    fun uniffi_cooklang_bindings_fn_clone_cooklangrecipe(
+        `ptr`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): Pointer
+
+    fun uniffi_cooklang_bindings_fn_free_cooklangrecipe(
+        `ptr`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): Unit
+
+    fun uniffi_cooklang_bindings_fn_method_cooklangrecipe_cookware(
+        `ptr`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_method_cooklangrecipe_ingredients(
+        `ptr`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_method_cooklangrecipe_sections(
+        `ptr`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_method_cooklangrecipe_timers(
+        `ptr`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
     fun uniffi_cooklang_bindings_fn_func_combine_ingredients(
         `ingredients`: RustBuffer.ByValue,
         uniffi_out_err: UniffiRustCallStatus,
@@ -785,26 +815,73 @@ internal interface UniffiLib : Library {
     ): RustBuffer.ByValue
 
     fun uniffi_cooklang_bindings_fn_func_deref_component(
-        `recipe`: RustBuffer.ByValue,
+        `recipe`: Pointer,
         `item`: RustBuffer.ByValue,
         uniffi_out_err: UniffiRustCallStatus,
     ): RustBuffer.ByValue
 
     fun uniffi_cooklang_bindings_fn_func_deref_cookware(
-        `recipe`: RustBuffer.ByValue,
+        `recipe`: Pointer,
         `index`: Int,
         uniffi_out_err: UniffiRustCallStatus,
     ): RustBuffer.ByValue
 
     fun uniffi_cooklang_bindings_fn_func_deref_ingredient(
-        `recipe`: RustBuffer.ByValue,
+        `recipe`: Pointer,
         `index`: Int,
         uniffi_out_err: UniffiRustCallStatus,
     ): RustBuffer.ByValue
 
     fun uniffi_cooklang_bindings_fn_func_deref_timer(
-        `recipe`: RustBuffer.ByValue,
+        `recipe`: Pointer,
         `index`: Int,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_func_metadata_author(
+        `recipe`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_func_metadata_description(
+        `recipe`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_func_metadata_get(
+        `recipe`: Pointer,
+        `key`: RustBuffer.ByValue,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_func_metadata_get_std(
+        `recipe`: Pointer,
+        `key`: RustBuffer.ByValue,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_func_metadata_servings(
+        `recipe`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_func_metadata_source(
+        `recipe`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_func_metadata_tags(
+        `recipe`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_func_metadata_time(
+        `recipe`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_func_metadata_title(
+        `recipe`: Pointer,
         uniffi_out_err: UniffiRustCallStatus,
     ): RustBuffer.ByValue
 
@@ -813,17 +890,11 @@ internal interface UniffiLib : Library {
         uniffi_out_err: UniffiRustCallStatus,
     ): Pointer
 
-    fun uniffi_cooklang_bindings_fn_func_parse_metadata(
-        `input`: RustBuffer.ByValue,
-        `scalingFactor`: Double,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): RustBuffer.ByValue
-
     fun uniffi_cooklang_bindings_fn_func_parse_recipe(
         `input`: RustBuffer.ByValue,
         `scalingFactor`: Double,
         uniffi_out_err: UniffiRustCallStatus,
-    ): RustBuffer.ByValue
+    ): Pointer
 
     fun ffi_cooklang_bindings_rustbuffer_alloc(
         `size`: Long,
@@ -1053,13 +1124,37 @@ internal interface UniffiLib : Library {
 
     fun uniffi_cooklang_bindings_checksum_func_deref_timer(): Short
 
-    fun uniffi_cooklang_bindings_checksum_func_parse_aisle_config(): Short
+    fun uniffi_cooklang_bindings_checksum_func_metadata_author(): Short
 
-    fun uniffi_cooklang_bindings_checksum_func_parse_metadata(): Short
+    fun uniffi_cooklang_bindings_checksum_func_metadata_description(): Short
+
+    fun uniffi_cooklang_bindings_checksum_func_metadata_get(): Short
+
+    fun uniffi_cooklang_bindings_checksum_func_metadata_get_std(): Short
+
+    fun uniffi_cooklang_bindings_checksum_func_metadata_servings(): Short
+
+    fun uniffi_cooklang_bindings_checksum_func_metadata_source(): Short
+
+    fun uniffi_cooklang_bindings_checksum_func_metadata_tags(): Short
+
+    fun uniffi_cooklang_bindings_checksum_func_metadata_time(): Short
+
+    fun uniffi_cooklang_bindings_checksum_func_metadata_title(): Short
+
+    fun uniffi_cooklang_bindings_checksum_func_parse_aisle_config(): Short
 
     fun uniffi_cooklang_bindings_checksum_func_parse_recipe(): Short
 
     fun uniffi_cooklang_bindings_checksum_method_aisleconf_category_for(): Short
+
+    fun uniffi_cooklang_bindings_checksum_method_cooklangrecipe_cookware(): Short
+
+    fun uniffi_cooklang_bindings_checksum_method_cooklangrecipe_ingredients(): Short
+
+    fun uniffi_cooklang_bindings_checksum_method_cooklangrecipe_sections(): Short
+
+    fun uniffi_cooklang_bindings_checksum_method_cooklangrecipe_timers(): Short
 
     fun ffi_cooklang_bindings_uniffi_contract_version(): Int
 }
@@ -1082,28 +1177,64 @@ private fun uniffiCheckApiChecksums(lib: UniffiLib) {
     if (lib.uniffi_cooklang_bindings_checksum_func_combine_ingredients_selected() != 56749.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_deref_component() != 22158.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_deref_component() != 11104.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_deref_cookware() != 9760.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_deref_cookware() != 38038.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_deref_ingredient() != 50661.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_deref_ingredient() != 16524.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_deref_timer() != 50822.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_deref_timer() != 18113.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_author() != 40301.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_description() != 57014.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_get() != 23295.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_get_std() != 33766.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_servings() != 48632.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_source() != 36897.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_tags() != 16588.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_time() != 28150.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_title() != 8486.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_cooklang_bindings_checksum_func_parse_aisle_config() != 49190.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_parse_metadata() != 62014.toShort()) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_cooklang_bindings_checksum_func_parse_recipe() != 51184.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_parse_recipe() != 56147.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_cooklang_bindings_checksum_method_aisleconf_category_for() != 17275.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_cookware() != 12279.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_ingredients() != 2547.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_sections() != 62397.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_timers() != 32547.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
 }
@@ -1565,6 +1696,280 @@ public object FfiConverterTypeAisleConf : FfiConverter<AisleConf, Pointer> {
     }
 }
 
+// This template implements a class for working with a Rust struct via a Pointer/Arc<T>
+// to the live Rust struct on the other side of the FFI.
+//
+// Each instance implements core operations for working with the Rust `Arc<T>` and the
+// Kotlin Pointer to work with the live Rust struct on the other side of the FFI.
+//
+// There's some subtlety here, because we have to be careful not to operate on a Rust
+// struct after it has been dropped, and because we must expose a public API for freeing
+// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
+//
+//   * Each instance holds an opaque pointer to the underlying Rust struct.
+//     Method calls need to read this pointer from the object's state and pass it in to
+//     the Rust FFI.
+//
+//   * When an instance is no longer needed, its pointer should be passed to a
+//     special destructor function provided by the Rust FFI, which will drop the
+//     underlying Rust struct.
+//
+//   * Given an instance, calling code is expected to call the special
+//     `destroy` method in order to free it after use, either by calling it explicitly
+//     or by using a higher-level helper like the `use` method. Failing to do so risks
+//     leaking the underlying Rust struct.
+//
+//   * We can't assume that calling code will do the right thing, and must be prepared
+//     to handle Kotlin method calls executing concurrently with or even after a call to
+//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
+//
+//   * We must never allow Rust code to operate on the underlying Rust struct after
+//     the destructor has been called, and must never call the destructor more than once.
+//     Doing so may trigger memory unsafety.
+//
+//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
+//     is implemented to call the destructor when the Kotlin object becomes unreachable.
+//     This is done in a background thread. This is not a panacea, and client code should be aware that
+//      1. the thread may starve if some there are objects that have poorly performing
+//     `drop` methods or do significant work in their `drop` methods.
+//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
+//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
+//
+// If we try to implement this with mutual exclusion on access to the pointer, there is the
+// possibility of a race between a method call and a concurrent call to `destroy`:
+//
+//    * Thread A starts a method call, reads the value of the pointer, but is interrupted
+//      before it can pass the pointer over the FFI to Rust.
+//    * Thread B calls `destroy` and frees the underlying Rust struct.
+//    * Thread A resumes, passing the already-read pointer value to Rust and triggering
+//      a use-after-free.
+//
+// One possible solution would be to use a `ReadWriteLock`, with each method call taking
+// a read lock (and thus allowed to run concurrently) and the special `destroy` method
+// taking a write lock (and thus blocking on live method calls). However, we aim not to
+// generate methods with any hidden blocking semantics, and a `destroy` method that might
+// block if called incorrectly seems to meet that bar.
+//
+// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
+// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
+// has been called. These are updated according to the following rules:
+//
+//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
+//      The initial value for the flag is false.
+//
+//    * At the start of each method call, we atomically check the counter.
+//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
+//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
+//
+//    * At the end of each method call, we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+//    * When `destroy` is called, we atomically flip the flag from false to true.
+//      If the flag was already true we silently fail.
+//      Otherwise we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
+// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
+//
+// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
+// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
+// of the underlying Rust code.
+//
+// This makes a cleaner a better alternative to _not_ calling `destroy()` as
+// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
+// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
+// thread may be starved, and the app will leak memory.
+//
+// In this case, `destroy`ing manually may be a better solution.
+//
+// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
+// with Rust peers are reclaimed:
+//
+// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
+// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
+// 3. The memory is reclaimed when the process terminates.
+//
+// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
+//
+
+public interface CooklangRecipeInterface {
+    fun `cookware`(): List<Cookware>
+
+    fun `ingredients`(): List<Ingredient>
+
+    fun `sections`(): List<Section>
+
+    fun `timers`(): List<Timer>
+
+    companion object
+}
+
+open class CooklangRecipe : Disposable, AutoCloseable, CooklangRecipeInterface {
+    constructor(pointer: Pointer) {
+        this.pointer = pointer
+        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(pointer))
+    }
+
+    /**
+     * This constructor can be used to instantiate a fake object. Only used for tests. Any
+     * attempt to actually use an object constructed this way will fail as there is no
+     * connected Rust object.
+     */
+    @Suppress("UNUSED_PARAMETER")
+    constructor(noPointer: NoPointer) {
+        this.pointer = null
+        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(pointer))
+    }
+
+    protected val pointer: Pointer?
+    protected val cleanable: UniffiCleaner.Cleanable
+
+    private val wasDestroyed = AtomicBoolean(false)
+    private val callCounter = AtomicLong(1)
+
+    override fun destroy() {
+        // Only allow a single call to this method.
+        // TODO: maybe we should log a warning if called more than once?
+        if (this.wasDestroyed.compareAndSet(false, true)) {
+            // This decrement always matches the initial count of 1 given at creation time.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable.clean()
+            }
+        }
+    }
+
+    @Synchronized
+    override fun close() {
+        this.destroy()
+    }
+
+    internal inline fun <R> callWithPointer(block: (ptr: Pointer) -> R): R {
+        // Check and increment the call counter, to keep the object alive.
+        // This needs a compare-and-set retry loop in case of concurrent updates.
+        do {
+            val c = this.callCounter.get()
+            if (c == 0L) {
+                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
+            }
+            if (c == Long.MAX_VALUE) {
+                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
+            }
+        } while (!this.callCounter.compareAndSet(c, c + 1L))
+        // Now we can safely do the method call without the pointer being freed concurrently.
+        try {
+            return block(this.uniffiClonePointer())
+        } finally {
+            // This decrement always matches the increment we performed above.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable.clean()
+            }
+        }
+    }
+
+    // Use a static inner class instead of a closure so as not to accidentally
+    // capture `this` as part of the cleanable's action.
+    private class UniffiCleanAction(private val pointer: Pointer?) : Runnable {
+        override fun run() {
+            pointer?.let { ptr ->
+                uniffiRustCall { status ->
+                    UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_free_cooklangrecipe(ptr, status)
+                }
+            }
+        }
+    }
+
+    fun uniffiClonePointer(): Pointer {
+        return uniffiRustCall { status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_clone_cooklangrecipe(pointer!!, status)
+        }
+    }
+
+    override fun `cookware`(): List<Cookware> {
+        return FfiConverterSequenceTypeCookware.lift(
+            callWithPointer {
+                uniffiRustCall { _status ->
+                    UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_method_cooklangrecipe_cookware(
+                        it,
+                        _status,
+                    )
+                }
+            },
+        )
+    }
+
+    override fun `ingredients`(): List<Ingredient> {
+        return FfiConverterSequenceTypeIngredient.lift(
+            callWithPointer {
+                uniffiRustCall { _status ->
+                    UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_method_cooklangrecipe_ingredients(
+                        it,
+                        _status,
+                    )
+                }
+            },
+        )
+    }
+
+    override fun `sections`(): List<Section> {
+        return FfiConverterSequenceTypeSection.lift(
+            callWithPointer {
+                uniffiRustCall { _status ->
+                    UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_method_cooklangrecipe_sections(
+                        it,
+                        _status,
+                    )
+                }
+            },
+        )
+    }
+
+    override fun `timers`(): List<Timer> {
+        return FfiConverterSequenceTypeTimer.lift(
+            callWithPointer {
+                uniffiRustCall { _status ->
+                    UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_method_cooklangrecipe_timers(
+                        it,
+                        _status,
+                    )
+                }
+            },
+        )
+    }
+
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeCooklangRecipe : FfiConverter<CooklangRecipe, Pointer> {
+    override fun lower(value: CooklangRecipe): Pointer {
+        return value.uniffiClonePointer()
+    }
+
+    override fun lift(value: Pointer): CooklangRecipe {
+        return CooklangRecipe(value)
+    }
+
+    override fun read(buf: ByteBuffer): CooklangRecipe {
+        // The Rust code always writes pointers as 8 bytes, and will
+        // fail to compile if they don't fit.
+        return lift(Pointer(buf.getLong()))
+    }
+
+    override fun allocationSize(value: CooklangRecipe) = 8UL
+
+    override fun write(
+        value: CooklangRecipe,
+        buf: ByteBuffer,
+    ) {
+        // The Rust code always expects pointers written as 8 bytes,
+        // and will fail to compile if they don't fit.
+        buf.putLong(Pointer.nativeValue(lower(value)))
+    }
+}
+
 data class AisleCategory(
     val `name`: kotlin.String,
     val `ingredients`: List<AisleIngredient>,
@@ -1693,51 +2098,6 @@ public object FfiConverterTypeBlockNote : FfiConverterRustBuffer<BlockNote> {
     }
 }
 
-data class CooklangRecipe(
-    val `metadata`: Map<kotlin.String, kotlin.String>,
-    val `sections`: List<Section>,
-    val `ingredients`: List<Ingredient>,
-    val `cookware`: List<Cookware>,
-    val `timers`: List<Timer>,
-) {
-    companion object
-}
-
-/**
- * @suppress
- */
-public object FfiConverterTypeCooklangRecipe : FfiConverterRustBuffer<CooklangRecipe> {
-    override fun read(buf: ByteBuffer): CooklangRecipe {
-        return CooklangRecipe(
-            FfiConverterMapStringString.read(buf),
-            FfiConverterSequenceTypeSection.read(buf),
-            FfiConverterSequenceTypeIngredient.read(buf),
-            FfiConverterSequenceTypeCookware.read(buf),
-            FfiConverterSequenceTypeTimer.read(buf),
-        )
-    }
-
-    override fun allocationSize(value: CooklangRecipe) =
-        (
-            FfiConverterMapStringString.allocationSize(value.`metadata`) +
-                FfiConverterSequenceTypeSection.allocationSize(value.`sections`) +
-                FfiConverterSequenceTypeIngredient.allocationSize(value.`ingredients`) +
-                FfiConverterSequenceTypeCookware.allocationSize(value.`cookware`) +
-                FfiConverterSequenceTypeTimer.allocationSize(value.`timers`)
-        )
-
-    override fun write(
-        value: CooklangRecipe,
-        buf: ByteBuffer,
-    ) {
-        FfiConverterMapStringString.write(value.`metadata`, buf)
-        FfiConverterSequenceTypeSection.write(value.`sections`, buf)
-        FfiConverterSequenceTypeIngredient.write(value.`ingredients`, buf)
-        FfiConverterSequenceTypeCookware.write(value.`cookware`, buf)
-        FfiConverterSequenceTypeTimer.write(value.`timers`, buf)
-    }
-}
-
 data class Cookware(
     val `name`: kotlin.String,
     val `amount`: Amount?,
@@ -1838,6 +2198,39 @@ public object FfiConverterTypeIngredient : FfiConverterRustBuffer<Ingredient> {
         FfiConverterString.write(value.`name`, buf)
         FfiConverterOptionalTypeAmount.write(value.`amount`, buf)
         FfiConverterOptionalString.write(value.`descriptor`, buf)
+    }
+}
+
+data class NameAndUrl(
+    val `name`: kotlin.String?,
+    val `url`: kotlin.String?,
+) {
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeNameAndUrl : FfiConverterRustBuffer<NameAndUrl> {
+    override fun read(buf: ByteBuffer): NameAndUrl {
+        return NameAndUrl(
+            FfiConverterOptionalString.read(buf),
+            FfiConverterOptionalString.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: NameAndUrl) =
+        (
+            FfiConverterOptionalString.allocationSize(value.`name`) +
+                FfiConverterOptionalString.allocationSize(value.`url`)
+        )
+
+    override fun write(
+        value: NameAndUrl,
+        buf: ByteBuffer,
+    ) {
+        FfiConverterOptionalString.write(value.`name`, buf)
+        FfiConverterOptionalString.write(value.`url`, buf)
     }
 }
 
@@ -2292,6 +2685,194 @@ public object FfiConverterTypeQuantityType : FfiConverterRustBuffer<QuantityType
     }
 }
 
+sealed class RecipeTime {
+    data class Total(
+        val `minutes`: kotlin.UInt,
+    ) : RecipeTime() {
+        companion object
+    }
+
+    data class Composed(
+        val `prepTime`: kotlin.UInt?,
+        val `cookTime`: kotlin.UInt?,
+    ) : RecipeTime() {
+        companion object
+    }
+
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeRecipeTime : FfiConverterRustBuffer<RecipeTime> {
+    override fun read(buf: ByteBuffer): RecipeTime {
+        return when (buf.getInt()) {
+            1 ->
+                RecipeTime.Total(
+                    FfiConverterUInt.read(buf),
+                )
+            2 ->
+                RecipeTime.Composed(
+                    FfiConverterOptionalUInt.read(buf),
+                    FfiConverterOptionalUInt.read(buf),
+                )
+            else -> throw RuntimeException("invalid enum value, something is very wrong!!")
+        }
+    }
+
+    override fun allocationSize(value: RecipeTime) =
+        when (value) {
+            is RecipeTime.Total -> {
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                (
+                    4UL +
+                        FfiConverterUInt.allocationSize(value.`minutes`)
+                )
+            }
+            is RecipeTime.Composed -> {
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                (
+                    4UL +
+                        FfiConverterOptionalUInt.allocationSize(value.`prepTime`) +
+                        FfiConverterOptionalUInt.allocationSize(value.`cookTime`)
+                )
+            }
+        }
+
+    override fun write(
+        value: RecipeTime,
+        buf: ByteBuffer,
+    ) {
+        when (value) {
+            is RecipeTime.Total -> {
+                buf.putInt(1)
+                FfiConverterUInt.write(value.`minutes`, buf)
+                Unit
+            }
+            is RecipeTime.Composed -> {
+                buf.putInt(2)
+                FfiConverterOptionalUInt.write(value.`prepTime`, buf)
+                FfiConverterOptionalUInt.write(value.`cookTime`, buf)
+                Unit
+            }
+        }.let { /* this makes the `when` an expression, which ensures it is exhaustive */ }
+    }
+}
+
+sealed class Servings {
+    data class Number(
+        val `value`: kotlin.UInt,
+    ) : Servings() {
+        companion object
+    }
+
+    data class Text(
+        val `value`: kotlin.String,
+    ) : Servings() {
+        companion object
+    }
+
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeServings : FfiConverterRustBuffer<Servings> {
+    override fun read(buf: ByteBuffer): Servings {
+        return when (buf.getInt()) {
+            1 ->
+                Servings.Number(
+                    FfiConverterUInt.read(buf),
+                )
+            2 ->
+                Servings.Text(
+                    FfiConverterString.read(buf),
+                )
+            else -> throw RuntimeException("invalid enum value, something is very wrong!!")
+        }
+    }
+
+    override fun allocationSize(value: Servings) =
+        when (value) {
+            is Servings.Number -> {
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                (
+                    4UL +
+                        FfiConverterUInt.allocationSize(value.`value`)
+                )
+            }
+            is Servings.Text -> {
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                (
+                    4UL +
+                        FfiConverterString.allocationSize(value.`value`)
+                )
+            }
+        }
+
+    override fun write(
+        value: Servings,
+        buf: ByteBuffer,
+    ) {
+        when (value) {
+            is Servings.Number -> {
+                buf.putInt(1)
+                FfiConverterUInt.write(value.`value`, buf)
+                Unit
+            }
+            is Servings.Text -> {
+                buf.putInt(2)
+                FfiConverterString.write(value.`value`, buf)
+                Unit
+            }
+        }.let { /* this makes the `when` an expression, which ensures it is exhaustive */ }
+    }
+}
+
+enum class StdKey {
+    TITLE,
+    DESCRIPTION,
+    TAGS,
+    AUTHOR,
+    SOURCE,
+    COURSE,
+    TIME,
+    PREP_TIME,
+    COOK_TIME,
+    SERVINGS,
+    DIFFICULTY,
+    CUISINE,
+    DIET,
+    IMAGES,
+    LOCALE,
+    ;
+
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeStdKey : FfiConverterRustBuffer<StdKey> {
+    override fun read(buf: ByteBuffer) =
+        try {
+            StdKey.values()[buf.getInt() - 1]
+        } catch (e: IndexOutOfBoundsException) {
+            throw RuntimeException("invalid enum value, something is very wrong!!", e)
+        }
+
+    override fun allocationSize(value: StdKey) = 4UL
+
+    override fun write(
+        value: StdKey,
+        buf: ByteBuffer,
+    ) {
+        buf.putInt(value.ordinal + 1)
+    }
+}
+
 sealed class Value {
     data class Number(
         val `value`: kotlin.Double,
@@ -2405,6 +2986,38 @@ public object FfiConverterTypeValue : FfiConverterRustBuffer<Value> {
 /**
  * @suppress
  */
+public object FfiConverterOptionalUInt : FfiConverterRustBuffer<kotlin.UInt?> {
+    override fun read(buf: ByteBuffer): kotlin.UInt? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterUInt.read(buf)
+    }
+
+    override fun allocationSize(value: kotlin.UInt?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterUInt.allocationSize(value)
+        }
+    }
+
+    override fun write(
+        value: kotlin.UInt?,
+        buf: ByteBuffer,
+    ) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterUInt.write(value, buf)
+        }
+    }
+}
+
+/**
+ * @suppress
+ */
 public object FfiConverterOptionalString : FfiConverterRustBuffer<kotlin.String?> {
     override fun read(buf: ByteBuffer): kotlin.String? {
         if (buf.get().toInt() == 0) {
@@ -2462,6 +3075,134 @@ public object FfiConverterOptionalTypeAmount : FfiConverterRustBuffer<Amount?> {
         } else {
             buf.put(1)
             FfiConverterTypeAmount.write(value, buf)
+        }
+    }
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeNameAndUrl : FfiConverterRustBuffer<NameAndUrl?> {
+    override fun read(buf: ByteBuffer): NameAndUrl? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeNameAndUrl.read(buf)
+    }
+
+    override fun allocationSize(value: NameAndUrl?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeNameAndUrl.allocationSize(value)
+        }
+    }
+
+    override fun write(
+        value: NameAndUrl?,
+        buf: ByteBuffer,
+    ) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeNameAndUrl.write(value, buf)
+        }
+    }
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeRecipeTime : FfiConverterRustBuffer<RecipeTime?> {
+    override fun read(buf: ByteBuffer): RecipeTime? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeRecipeTime.read(buf)
+    }
+
+    override fun allocationSize(value: RecipeTime?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeRecipeTime.allocationSize(value)
+        }
+    }
+
+    override fun write(
+        value: RecipeTime?,
+        buf: ByteBuffer,
+    ) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeRecipeTime.write(value, buf)
+        }
+    }
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeServings : FfiConverterRustBuffer<Servings?> {
+    override fun read(buf: ByteBuffer): Servings? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeServings.read(buf)
+    }
+
+    override fun allocationSize(value: Servings?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeServings.allocationSize(value)
+        }
+    }
+
+    override fun write(
+        value: Servings?,
+        buf: ByteBuffer,
+    ) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeServings.write(value, buf)
+        }
+    }
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalSequenceString : FfiConverterRustBuffer<List<kotlin.String>?> {
+    override fun read(buf: ByteBuffer): List<kotlin.String>? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterSequenceString.read(buf)
+    }
+
+    override fun allocationSize(value: List<kotlin.String>?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterSequenceString.allocationSize(value)
+        }
+    }
+
+    override fun write(
+        value: List<kotlin.String>?,
+        buf: ByteBuffer,
+    ) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterSequenceString.write(value, buf)
         }
     }
 }
@@ -2721,46 +3462,6 @@ public object FfiConverterSequenceTypeItem : FfiConverterRustBuffer<List<Item>> 
 /**
  * @suppress
  */
-public object FfiConverterMapStringString : FfiConverterRustBuffer<Map<kotlin.String, kotlin.String>> {
-    override fun read(buf: ByteBuffer): Map<kotlin.String, kotlin.String> {
-        val len = buf.getInt()
-        return buildMap<kotlin.String, kotlin.String>(len) {
-            repeat(len) {
-                val k = FfiConverterString.read(buf)
-                val v = FfiConverterString.read(buf)
-                this[k] = v
-            }
-        }
-    }
-
-    override fun allocationSize(value: Map<kotlin.String, kotlin.String>): ULong {
-        val spaceForMapSize = 4UL
-        val spaceForChildren =
-            value.map { (k, v) ->
-                FfiConverterString.allocationSize(k) +
-                    FfiConverterString.allocationSize(v)
-            }.sum()
-        return spaceForMapSize + spaceForChildren
-    }
-
-    override fun write(
-        value: Map<kotlin.String, kotlin.String>,
-        buf: ByteBuffer,
-    ) {
-        buf.putInt(value.size)
-        // The parens on `(k, v)` here ensure we're calling the right method,
-        // which is important for compatibility with older android devices.
-        // Ref https://blog.danlew.net/2017/03/16/kotlin-puzzler-whose-line-is-it-anyways/
-        value.forEach { (k, v) ->
-            FfiConverterString.write(k, buf)
-            FfiConverterString.write(v, buf)
-        }
-    }
-}
-
-/**
- * @suppress
- */
 public object FfiConverterMapStringMapTypeGroupedQuantityKeyTypeValue : FfiConverterRustBuffer<Map<kotlin.String, Map<GroupedQuantityKey, Value>>> {
     override fun read(buf: ByteBuffer): Map<kotlin.String, Map<GroupedQuantityKey, Value>> {
         val len = buf.getInt()
@@ -2924,26 +3625,118 @@ fun `derefTimer`(
     )
 }
 
-fun `parseAisleConfig`(`input`: kotlin.String): AisleConf {
-    return FfiConverterTypeAisleConf.lift(
+fun `metadataAuthor`(`recipe`: CooklangRecipe): NameAndUrl? {
+    return FfiConverterOptionalTypeNameAndUrl.lift(
         uniffiRustCall { _status ->
-            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_parse_aisle_config(
-                FfiConverterString.lower(`input`),
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_metadata_author(
+                FfiConverterTypeCooklangRecipe.lower(`recipe`),
                 _status,
             )
         },
     )
 }
 
-fun `parseMetadata`(
-    `input`: kotlin.String,
-    `scalingFactor`: kotlin.Double,
-): Map<kotlin.String, kotlin.String> {
-    return FfiConverterMapStringString.lift(
+fun `metadataDescription`(`recipe`: CooklangRecipe): kotlin.String? {
+    return FfiConverterOptionalString.lift(
         uniffiRustCall { _status ->
-            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_parse_metadata(
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_metadata_description(
+                FfiConverterTypeCooklangRecipe.lower(`recipe`),
+                _status,
+            )
+        },
+    )
+}
+
+fun `metadataGet`(
+    `recipe`: CooklangRecipe,
+    `key`: kotlin.String,
+): kotlin.String? {
+    return FfiConverterOptionalString.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_metadata_get(
+                FfiConverterTypeCooklangRecipe.lower(`recipe`),
+                FfiConverterString.lower(`key`),
+                _status,
+            )
+        },
+    )
+}
+
+fun `metadataGetStd`(
+    `recipe`: CooklangRecipe,
+    `key`: StdKey,
+): kotlin.String? {
+    return FfiConverterOptionalString.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_metadata_get_std(
+                FfiConverterTypeCooklangRecipe.lower(`recipe`),
+                FfiConverterTypeStdKey.lower(`key`),
+                _status,
+            )
+        },
+    )
+}
+
+fun `metadataServings`(`recipe`: CooklangRecipe): Servings? {
+    return FfiConverterOptionalTypeServings.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_metadata_servings(
+                FfiConverterTypeCooklangRecipe.lower(`recipe`),
+                _status,
+            )
+        },
+    )
+}
+
+fun `metadataSource`(`recipe`: CooklangRecipe): NameAndUrl? {
+    return FfiConverterOptionalTypeNameAndUrl.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_metadata_source(
+                FfiConverterTypeCooklangRecipe.lower(`recipe`),
+                _status,
+            )
+        },
+    )
+}
+
+fun `metadataTags`(`recipe`: CooklangRecipe): List<kotlin.String>? {
+    return FfiConverterOptionalSequenceString.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_metadata_tags(
+                FfiConverterTypeCooklangRecipe.lower(`recipe`),
+                _status,
+            )
+        },
+    )
+}
+
+fun `metadataTime`(`recipe`: CooklangRecipe): RecipeTime? {
+    return FfiConverterOptionalTypeRecipeTime.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_metadata_time(
+                FfiConverterTypeCooklangRecipe.lower(`recipe`),
+                _status,
+            )
+        },
+    )
+}
+
+fun `metadataTitle`(`recipe`: CooklangRecipe): kotlin.String? {
+    return FfiConverterOptionalString.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_metadata_title(
+                FfiConverterTypeCooklangRecipe.lower(`recipe`),
+                _status,
+            )
+        },
+    )
+}
+
+fun `parseAisleConfig`(`input`: kotlin.String): AisleConf {
+    return FfiConverterTypeAisleConf.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_parse_aisle_config(
                 FfiConverterString.lower(`input`),
-                FfiConverterDouble.lower(`scalingFactor`),
                 _status,
             )
         },
