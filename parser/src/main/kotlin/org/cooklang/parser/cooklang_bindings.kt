@@ -838,7 +838,22 @@ internal interface UniffiLib : Library {
         uniffi_out_err: UniffiRustCallStatus,
     ): RustBuffer.ByValue
 
+    fun uniffi_cooklang_bindings_fn_func_format_amount(
+        `amount`: RustBuffer.ByValue,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_func_format_value(
+        `value`: RustBuffer.ByValue,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
     fun uniffi_cooklang_bindings_fn_func_metadata_author(
+        `recipe`: Pointer,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
+
+    fun uniffi_cooklang_bindings_fn_func_metadata_custom_keys(
         `recipe`: Pointer,
         uniffi_out_err: UniffiRustCallStatus,
     ): RustBuffer.ByValue
@@ -895,6 +910,11 @@ internal interface UniffiLib : Library {
         `scalingFactor`: Double,
         uniffi_out_err: UniffiRustCallStatus,
     ): Pointer
+
+    fun uniffi_cooklang_bindings_fn_func_parse_value(
+        `s`: RustBuffer.ByValue,
+        uniffi_out_err: UniffiRustCallStatus,
+    ): RustBuffer.ByValue
 
     fun ffi_cooklang_bindings_rustbuffer_alloc(
         `size`: Long,
@@ -1124,7 +1144,13 @@ internal interface UniffiLib : Library {
 
     fun uniffi_cooklang_bindings_checksum_func_deref_timer(): Short
 
+    fun uniffi_cooklang_bindings_checksum_func_format_amount(): Short
+
+    fun uniffi_cooklang_bindings_checksum_func_format_value(): Short
+
     fun uniffi_cooklang_bindings_checksum_func_metadata_author(): Short
+
+    fun uniffi_cooklang_bindings_checksum_func_metadata_custom_keys(): Short
 
     fun uniffi_cooklang_bindings_checksum_func_metadata_description(): Short
 
@@ -1145,6 +1171,8 @@ internal interface UniffiLib : Library {
     fun uniffi_cooklang_bindings_checksum_func_parse_aisle_config(): Short
 
     fun uniffi_cooklang_bindings_checksum_func_parse_recipe(): Short
+
+    fun uniffi_cooklang_bindings_checksum_func_parse_value(): Short
 
     fun uniffi_cooklang_bindings_checksum_method_aisleconf_category_for(): Short
 
@@ -1171,70 +1199,82 @@ private fun uniffiCheckContractApiVersion(lib: UniffiLib) {
 
 @Suppress("UNUSED_PARAMETER")
 private fun uniffiCheckApiChecksums(lib: UniffiLib) {
-    if (lib.uniffi_cooklang_bindings_checksum_func_combine_ingredients() != 48221.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_combine_ingredients() != 36610.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_combine_ingredients_selected() != 56749.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_combine_ingredients_selected() != 40919.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_deref_component() != 11104.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_deref_component() != 34036.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_deref_cookware() != 38038.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_deref_cookware() != 554.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_deref_ingredient() != 16524.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_deref_ingredient() != 19669.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_deref_timer() != 18113.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_deref_timer() != 59309.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_author() != 40301.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_format_amount() != 64895.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_description() != 57014.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_format_value() != 29360.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_get() != 23295.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_author() != 27104.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_get_std() != 33766.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_custom_keys() != 26863.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_servings() != 48632.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_description() != 22848.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_source() != 36897.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_get() != 30261.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_tags() != 16588.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_get_std() != 65428.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_time() != 28150.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_servings() != 62006.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_title() != 8486.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_source() != 51247.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_parse_aisle_config() != 49190.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_tags() != 63258.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_func_parse_recipe() != 56147.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_time() != 27261.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_method_aisleconf_category_for() != 17275.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_metadata_title() != 16632.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_cookware() != 12279.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_parse_aisle_config() != 10549.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_ingredients() != 2547.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_parse_recipe() != 26150.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_sections() != 62397.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_func_parse_value() != 41886.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_timers() != 32547.toShort()) {
+    if (lib.uniffi_cooklang_bindings_checksum_method_aisleconf_category_for() != 45672.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_cookware() != 42673.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_ingredients() != 36256.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_sections() != 55375.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_cooklang_bindings_checksum_method_cooklangrecipe_timers() != 63040.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
 }
@@ -1563,12 +1603,27 @@ private class AndroidSystemCleanable(
     override fun clean() = cleanable.clean()
 }
 
+/**
+ * Configuration for organizing ingredients into shopping aisles
+ */
 public interface AisleConfInterface {
+    /**
+     * Returns the category name for a given ingredient
+     *
+     * # Arguments
+     * * `ingredient_name` - The name of the ingredient to categorize
+     *
+     * # Returns
+     * The category name if the ingredient is found, None otherwise
+     */
     fun `categoryFor`(`ingredientName`: kotlin.String): kotlin.String?
 
     companion object
 }
 
+/**
+ * Configuration for organizing ingredients into shopping aisles
+ */
 open class AisleConf : Disposable, AutoCloseable, AisleConfInterface {
     constructor(pointer: Pointer) {
         this.pointer = pointer
@@ -1649,6 +1704,15 @@ open class AisleConf : Disposable, AutoCloseable, AisleConfInterface {
         }
     }
 
+    /**
+     * Returns the category name for a given ingredient
+     *
+     * # Arguments
+     * * `ingredient_name` - The name of the ingredient to categorize
+     *
+     * # Returns
+     * The category name if the ingredient is found, None otherwise
+     */
     override fun `categoryFor`(`ingredientName`: kotlin.String): kotlin.String? {
         return FfiConverterOptionalString.lift(
             callWithPointer {
@@ -1793,18 +1857,36 @@ public object FfiConverterTypeAisleConf : FfiConverter<AisleConf, Pointer> {
 // [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
 //
 
+/**
+ * A parsed Cooklang recipe containing all recipe components
+ */
 public interface CooklangRecipeInterface {
+    /**
+     * Returns all cookware used in the recipe
+     */
     fun `cookware`(): List<Cookware>
 
+    /**
+     * Returns all ingredients used in the recipe
+     */
     fun `ingredients`(): List<Ingredient>
 
+    /**
+     * Returns all sections in the recipe
+     */
     fun `sections`(): List<Section>
 
+    /**
+     * Returns all timers in the recipe
+     */
     fun `timers`(): List<Timer>
 
     companion object
 }
 
+/**
+ * A parsed Cooklang recipe containing all recipe components
+ */
 open class CooklangRecipe : Disposable, AutoCloseable, CooklangRecipeInterface {
     constructor(pointer: Pointer) {
         this.pointer = pointer
@@ -1885,6 +1967,9 @@ open class CooklangRecipe : Disposable, AutoCloseable, CooklangRecipeInterface {
         }
     }
 
+    /**
+     * Returns all cookware used in the recipe
+     */
     override fun `cookware`(): List<Cookware> {
         return FfiConverterSequenceTypeCookware.lift(
             callWithPointer {
@@ -1898,6 +1983,9 @@ open class CooklangRecipe : Disposable, AutoCloseable, CooklangRecipeInterface {
         )
     }
 
+    /**
+     * Returns all ingredients used in the recipe
+     */
     override fun `ingredients`(): List<Ingredient> {
         return FfiConverterSequenceTypeIngredient.lift(
             callWithPointer {
@@ -1911,6 +1999,9 @@ open class CooklangRecipe : Disposable, AutoCloseable, CooklangRecipeInterface {
         )
     }
 
+    /**
+     * Returns all sections in the recipe
+     */
     override fun `sections`(): List<Section> {
         return FfiConverterSequenceTypeSection.lift(
             callWithPointer {
@@ -1924,6 +2015,9 @@ open class CooklangRecipe : Disposable, AutoCloseable, CooklangRecipeInterface {
         )
     }
 
+    /**
+     * Returns all timers in the recipe
+     */
     override fun `timers`(): List<Timer> {
         return FfiConverterSequenceTypeTimer.lift(
             callWithPointer {
@@ -1970,6 +2064,9 @@ public object FfiConverterTypeCooklangRecipe : FfiConverter<CooklangRecipe, Poin
     }
 }
 
+/**
+ * A shopping aisle category containing related ingredients
+ */
 data class AisleCategory(
     val `name`: kotlin.String,
     val `ingredients`: List<AisleIngredient>,
@@ -2003,6 +2100,9 @@ public object FfiConverterTypeAisleCategory : FfiConverterRustBuffer<AisleCatego
     }
 }
 
+/**
+ * An ingredient with its name and aliases for aisle categorization
+ */
 data class AisleIngredient(
     val `name`: kotlin.String,
     val `aliases`: List<kotlin.String>,
@@ -2036,6 +2136,9 @@ public object FfiConverterTypeAisleIngredient : FfiConverterRustBuffer<AisleIngr
     }
 }
 
+/**
+ * Represents a quantity with optional units
+ */
 data class Amount(
     val `quantity`: Value,
     val `units`: kotlin.String?,
@@ -2069,6 +2172,9 @@ public object FfiConverterTypeAmount : FfiConverterRustBuffer<Amount> {
     }
 }
 
+/**
+ * A text note within the recipe
+ */
 data class BlockNote(
     val `text`: kotlin.String,
 ) {
@@ -2098,6 +2204,9 @@ public object FfiConverterTypeBlockNote : FfiConverterRustBuffer<BlockNote> {
     }
 }
 
+/**
+ * Represents a piece of cookware used in the recipe
+ */
 data class Cookware(
     val `name`: kotlin.String,
     val `amount`: Amount?,
@@ -2131,6 +2240,9 @@ public object FfiConverterTypeCookware : FfiConverterRustBuffer<Cookware> {
     }
 }
 
+/**
+ * Key for grouping quantities by unit and type
+ */
 data class GroupedQuantityKey(
     val `name`: kotlin.String,
     val `unitType`: QuantityType,
@@ -2164,6 +2276,9 @@ public object FfiConverterTypeGroupedQuantityKey : FfiConverterRustBuffer<Groupe
     }
 }
 
+/**
+ * Represents an ingredient in the recipe
+ */
 data class Ingredient(
     val `name`: kotlin.String,
     val `amount`: Amount?,
@@ -2201,6 +2316,9 @@ public object FfiConverterTypeIngredient : FfiConverterRustBuffer<Ingredient> {
     }
 }
 
+/**
+ * A name with an optional URL (used for author/source)
+ */
 data class NameAndUrl(
     val `name`: kotlin.String?,
     val `url`: kotlin.String?,
@@ -2234,6 +2352,9 @@ public object FfiConverterTypeNameAndUrl : FfiConverterRustBuffer<NameAndUrl> {
     }
 }
 
+/**
+ * Represents a distinct section of a recipe, optionally with a title
+ */
 data class Section(
     val `title`: kotlin.String?,
     val `blocks`: List<Block>,
@@ -2279,6 +2400,9 @@ public object FfiConverterTypeSection : FfiConverterRustBuffer<Section> {
     }
 }
 
+/**
+ * Represents a single cooking instruction step
+ */
 data class Step(
     val `items`: List<Item>,
     val `ingredientRefs`: List<kotlin.UInt>,
@@ -2320,6 +2444,9 @@ public object FfiConverterTypeStep : FfiConverterRustBuffer<Step> {
     }
 }
 
+/**
+ * Represents a timer in the recipe
+ */
 data class Timer(
     val `name`: kotlin.String?,
     val `amount`: Amount?,
@@ -2353,6 +2480,9 @@ public object FfiConverterTypeTimer : FfiConverterRustBuffer<Timer> {
     }
 }
 
+/**
+ * A block can either be a cooking step or a note
+ */
 sealed class Block {
     data class StepBlock(
         val v1: Step,
@@ -2424,6 +2554,9 @@ public object FfiConverterTypeBlock : FfiConverterRustBuffer<Block> {
     }
 }
 
+/**
+ * Types of components that can be referenced in a recipe
+ */
 sealed class Component {
     data class IngredientComponent(
         val v1: Ingredient,
@@ -2539,6 +2672,9 @@ public object FfiConverterTypeComponent : FfiConverterRustBuffer<Component> {
     }
 }
 
+/**
+ * Elements that can appear in a recipe step
+ */
 sealed class Item {
     data class Text(
         val `value`: kotlin.String,
@@ -2654,6 +2790,10 @@ public object FfiConverterTypeItem : FfiConverterRustBuffer<Item> {
     }
 }
 
+/**
+ * Type of quantity value in a grouped quantity
+ */
+
 enum class QuantityType {
     NUMBER,
     RANGE,
@@ -2685,6 +2825,9 @@ public object FfiConverterTypeQuantityType : FfiConverterRustBuffer<QuantityType
     }
 }
 
+/**
+ * Recipe time as either total minutes or separate prep/cook times
+ */
 sealed class RecipeTime {
     data class Total(
         val `minutes`: kotlin.UInt,
@@ -2760,6 +2903,9 @@ public object FfiConverterTypeRecipeTime : FfiConverterRustBuffer<RecipeTime> {
     }
 }
 
+/**
+ * Recipe servings as either a number or text description
+ */
 sealed class Servings {
     data class Number(
         val `value`: kotlin.UInt,
@@ -2831,6 +2977,10 @@ public object FfiConverterTypeServings : FfiConverterRustBuffer<Servings> {
     }
 }
 
+/**
+ * Standard metadata keys from the Cooklang specification
+ */
+
 enum class StdKey {
     TITLE,
     DESCRIPTION,
@@ -2873,6 +3023,9 @@ public object FfiConverterTypeStdKey : FfiConverterRustBuffer<StdKey> {
     }
 }
 
+/**
+ * Types of values that can represent quantities
+ */
 sealed class Value {
     data class Number(
         val `value`: kotlin.Double,
@@ -3539,6 +3692,15 @@ public object FfiConverterMapTypeGroupedQuantityKeyTypeValue : FfiConverterRustB
     }
 }
 
+/**
+ * Combines a list of ingredients, grouping by name and summing quantities
+ *
+ * # Arguments
+ * * `ingredients` - List of ingredients to combine
+ *
+ * # Returns
+ * A map of ingredient names to their combined quantities
+ */
 fun `combineIngredients`(`ingredients`: List<Ingredient>): Map<kotlin.String, Map<GroupedQuantityKey, Value>> {
     return FfiConverterMapStringMapTypeGroupedQuantityKeyTypeValue.lift(
         uniffiRustCall { _status ->
@@ -3550,6 +3712,16 @@ fun `combineIngredients`(`ingredients`: List<Ingredient>): Map<kotlin.String, Ma
     )
 }
 
+/**
+ * Combines selected ingredients by their indices
+ *
+ * # Arguments
+ * * `ingredients` - Full list of ingredients
+ * * `indices` - Indices of ingredients to combine
+ *
+ * # Returns
+ * A map of ingredient names to their combined quantities
+ */
 fun `combineIngredientsSelected`(
     `ingredients`: List<Ingredient>,
     `indices`: List<kotlin.UInt>,
@@ -3565,6 +3737,16 @@ fun `combineIngredientsSelected`(
     )
 }
 
+/**
+ * Dereferences a component reference to get the actual component
+ *
+ * # Arguments
+ * * `recipe` - The recipe containing the components
+ * * `item` - The item reference (IngredientRef, CookwareRef, TimerRef, or Text)
+ *
+ * # Returns
+ * The actual component (Ingredient, Cookware, Timer, or Text)
+ */
 fun `derefComponent`(
     `recipe`: CooklangRecipe,
     `item`: Item,
@@ -3580,6 +3762,16 @@ fun `derefComponent`(
     )
 }
 
+/**
+ * Gets cookware by its index
+ *
+ * # Arguments
+ * * `recipe` - The recipe containing the cookware
+ * * `index` - The index of the cookware
+ *
+ * # Returns
+ * The cookware at the specified index
+ */
 fun `derefCookware`(
     `recipe`: CooklangRecipe,
     `index`: kotlin.UInt,
@@ -3595,6 +3787,16 @@ fun `derefCookware`(
     )
 }
 
+/**
+ * Gets an ingredient by its index
+ *
+ * # Arguments
+ * * `recipe` - The recipe containing the ingredients
+ * * `index` - The index of the ingredient
+ *
+ * # Returns
+ * The ingredient at the specified index
+ */
 fun `derefIngredient`(
     `recipe`: CooklangRecipe,
     `index`: kotlin.UInt,
@@ -3610,6 +3812,16 @@ fun `derefIngredient`(
     )
 }
 
+/**
+ * Gets a timer by its index
+ *
+ * # Arguments
+ * * `recipe` - The recipe containing the timers
+ * * `index` - The index of the timer
+ *
+ * # Returns
+ * The timer at the specified index
+ */
 fun `derefTimer`(
     `recipe`: CooklangRecipe,
     `index`: kotlin.UInt,
@@ -3625,6 +3837,60 @@ fun `derefTimer`(
     )
 }
 
+/**
+ * Formats an Amount to a display string with units
+ *
+ * Combines formatted quantity with units (e.g., "2/3 cups", "1 1/2 tsp")
+ *
+ * # Arguments
+ * * `amount` - The amount to format
+ *
+ * # Returns
+ * Formatted string with quantity and units
+ */
+fun `formatAmount`(`amount`: Amount): kotlin.String {
+    return FfiConverterString.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_format_amount(
+                FfiConverterTypeAmount.lower(`amount`),
+                _status,
+            )
+        },
+    )
+}
+
+/**
+ * Formats a Value to a display string with proper fraction handling
+ *
+ * Converts decimals to fractions where appropriate (e.g., 0.666667 -> "2/3")
+ * Handles floating point precision issues from scaling (e.g., 0.89999999 -> "0.9")
+ *
+ * # Arguments
+ * * `value` - The value to format
+ *
+ * # Returns
+ * Formatted string or None for Empty values
+ */
+fun `formatValue`(`value`: Value): kotlin.String? {
+    return FfiConverterOptionalString.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_format_value(
+                FfiConverterTypeValue.lower(`value`),
+                _status,
+            )
+        },
+    )
+}
+
+/**
+ * Gets the author information from recipe metadata
+ *
+ * # Arguments
+ * * `recipe` - The recipe to get author from
+ *
+ * # Returns
+ * Author name and optional URL
+ */
 fun `metadataAuthor`(`recipe`: CooklangRecipe): NameAndUrl? {
     return FfiConverterOptionalTypeNameAndUrl.lift(
         uniffiRustCall { _status ->
@@ -3636,6 +3902,35 @@ fun `metadataAuthor`(`recipe`: CooklangRecipe): NameAndUrl? {
     )
 }
 
+/**
+ * Gets all non-standard (custom) metadata keys
+ *
+ * # Arguments
+ * * `recipe` - The recipe containing metadata
+ *
+ * # Returns
+ * List of custom metadata keys that are not part of the Cooklang standard
+ */
+fun `metadataCustomKeys`(`recipe`: CooklangRecipe): List<kotlin.String> {
+    return FfiConverterSequenceString.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_metadata_custom_keys(
+                FfiConverterTypeCooklangRecipe.lower(`recipe`),
+                _status,
+            )
+        },
+    )
+}
+
+/**
+ * Gets the description from recipe metadata
+ *
+ * # Arguments
+ * * `recipe` - The recipe to get the description from
+ *
+ * # Returns
+ * The recipe description if present
+ */
 fun `metadataDescription`(`recipe`: CooklangRecipe): kotlin.String? {
     return FfiConverterOptionalString.lift(
         uniffiRustCall { _status ->
@@ -3647,6 +3942,16 @@ fun `metadataDescription`(`recipe`: CooklangRecipe): kotlin.String? {
     )
 }
 
+/**
+ * Gets a custom metadata value by key
+ *
+ * # Arguments
+ * * `recipe` - The recipe containing metadata
+ * * `key` - The metadata key to retrieve
+ *
+ * # Returns
+ * The metadata value if present
+ */
 fun `metadataGet`(
     `recipe`: CooklangRecipe,
     `key`: kotlin.String,
@@ -3662,6 +3967,16 @@ fun `metadataGet`(
     )
 }
 
+/**
+ * Gets a standard metadata value using the StdKey enum
+ *
+ * # Arguments
+ * * `recipe` - The recipe containing metadata
+ * * `key` - The standard metadata key
+ *
+ * # Returns
+ * The metadata value if present
+ */
 fun `metadataGetStd`(
     `recipe`: CooklangRecipe,
     `key`: StdKey,
@@ -3677,6 +3992,15 @@ fun `metadataGetStd`(
     )
 }
 
+/**
+ * Gets the servings from recipe metadata
+ *
+ * # Arguments
+ * * `recipe` - The recipe to get servings from
+ *
+ * # Returns
+ * Servings as either a number (e.g., 4) or text (e.g., "2-3 portions")
+ */
 fun `metadataServings`(`recipe`: CooklangRecipe): Servings? {
     return FfiConverterOptionalTypeServings.lift(
         uniffiRustCall { _status ->
@@ -3688,6 +4012,15 @@ fun `metadataServings`(`recipe`: CooklangRecipe): Servings? {
     )
 }
 
+/**
+ * Gets the source information from recipe metadata
+ *
+ * # Arguments
+ * * `recipe` - The recipe to get source from
+ *
+ * # Returns
+ * Source name and optional URL
+ */
 fun `metadataSource`(`recipe`: CooklangRecipe): NameAndUrl? {
     return FfiConverterOptionalTypeNameAndUrl.lift(
         uniffiRustCall { _status ->
@@ -3699,6 +4032,15 @@ fun `metadataSource`(`recipe`: CooklangRecipe): NameAndUrl? {
     )
 }
 
+/**
+ * Gets tags from recipe metadata
+ *
+ * # Arguments
+ * * `recipe` - The recipe to get tags from
+ *
+ * # Returns
+ * A list of tags if present
+ */
 fun `metadataTags`(`recipe`: CooklangRecipe): List<kotlin.String>? {
     return FfiConverterOptionalSequenceString.lift(
         uniffiRustCall { _status ->
@@ -3710,6 +4052,15 @@ fun `metadataTags`(`recipe`: CooklangRecipe): List<kotlin.String>? {
     )
 }
 
+/**
+ * Gets the time information from recipe metadata
+ *
+ * # Arguments
+ * * `recipe` - The recipe to get time from
+ *
+ * # Returns
+ * Total time or separate prep/cook times in minutes
+ */
 fun `metadataTime`(`recipe`: CooklangRecipe): RecipeTime? {
     return FfiConverterOptionalTypeRecipeTime.lift(
         uniffiRustCall { _status ->
@@ -3721,6 +4072,15 @@ fun `metadataTime`(`recipe`: CooklangRecipe): RecipeTime? {
     )
 }
 
+/**
+ * Gets the title from recipe metadata
+ *
+ * # Arguments
+ * * `recipe` - The recipe to get the title from
+ *
+ * # Returns
+ * The recipe title if present
+ */
 fun `metadataTitle`(`recipe`: CooklangRecipe): kotlin.String? {
     return FfiConverterOptionalString.lift(
         uniffiRustCall { _status ->
@@ -3732,6 +4092,15 @@ fun `metadataTitle`(`recipe`: CooklangRecipe): kotlin.String? {
     )
 }
 
+/**
+ * Parses an aisle configuration for shopping list organization
+ *
+ * # Arguments
+ * * `input` - The aisle configuration text
+ *
+ * # Returns
+ * Parsed aisle configuration with categories and ingredient mappings
+ */
 fun `parseAisleConfig`(`input`: kotlin.String): AisleConf {
     return FfiConverterTypeAisleConf.lift(
         uniffiRustCall { _status ->
@@ -3743,6 +4112,16 @@ fun `parseAisleConfig`(`input`: kotlin.String): AisleConf {
     )
 }
 
+/**
+ * Parses a Cooklang recipe from text and applies a scaling factor
+ *
+ * # Arguments
+ * * `input` - The raw recipe text in Cooklang format
+ * * `scaling_factor` - Factor to scale ingredient quantities (1.0 for no scaling)
+ *
+ * # Returns
+ * A parsed recipe object with metadata, sections, ingredients, cookware and timers
+ */
 fun `parseRecipe`(
     `input`: kotlin.String,
     `scalingFactor`: kotlin.Double,
@@ -3752,6 +4131,29 @@ fun `parseRecipe`(
             UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_parse_recipe(
                 FfiConverterString.lower(`input`),
                 FfiConverterDouble.lower(`scalingFactor`),
+                _status,
+            )
+        },
+    )
+}
+
+/**
+ * Parses a string into a Value
+ *
+ * Supports fractions (e.g., "1/2" -> 0.5), mixed numbers (e.g., "1 1/2" -> 1.5),
+ * ranges (e.g., "1/2 - 3/4" -> Range{0.5, 0.75}), or falls back to text
+ *
+ * # Arguments
+ * * `s` - The string to parse
+ *
+ * # Returns
+ * Parsed Value (Number, Range, or Text)
+ */
+fun `parseValue`(`s`: kotlin.String): Value {
+    return FfiConverterTypeValue.lift(
+        uniffiRustCall { _status ->
+            UniffiLib.INSTANCE.uniffi_cooklang_bindings_fn_func_parse_value(
+                FfiConverterString.lower(`s`),
                 _status,
             )
         },
