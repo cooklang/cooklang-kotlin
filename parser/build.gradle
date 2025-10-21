@@ -8,7 +8,7 @@ def gprProperties = new Properties()
 file("../gpr.properties").withInputStream { gprProperties.load(it) }
 
 ext {
-    versionName = "0.17.0"
+    versionName = "0.17.1"
 }
 
 android {
